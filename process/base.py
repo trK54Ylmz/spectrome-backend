@@ -56,7 +56,7 @@ class Process:
 
         return new_width, new_height, x, y
 
-    def safety(self, files):
+    def safety(self, path):
         """
         Check safety of files (video) or file (photo)
         """

@@ -24,11 +24,11 @@ class UserSearchService(ElasticService):
         }
 
         # create suggestion query
-        s = u.search() \
+        s = u.suggest('username', query, completion=fu) \
+            .suggest('name', query, completion=fn) \
             .using(self.client) \
             .index(u.Index.name) \
-            .suggest('username', query, completion=fu) \
-            .suggest('name', query, completion=fn)
+            .search()
 
         res = s.execute()
 

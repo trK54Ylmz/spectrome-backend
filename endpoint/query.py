@@ -43,10 +43,11 @@ def circle():
     m.users = []
     for suggest in [res.username, res.name]:
         for option in suggest[0].options:
-            if option._id in ids:
-                continue
+            iid = option['_id']
+            source = option['_source']
 
-            source = option._source
+            if iid in ids:
+                continue
 
             # update non-exists parameter
             if 'photo_id' not in source:
@@ -59,7 +60,7 @@ def circle():
                 'photo_url': f'https://{config.app.cdn}/profile/{name}/1.jpg',
             }
 
-            ids.append(option._id)
+            ids.append(iid)
             m.users.append(user)
 
     m.status = True
@@ -100,10 +101,11 @@ def user():
     m.users = []
     for suggest in [res.username, res.name]:
         for option in suggest[0].options:
-            if option._id in ids:
-                continue
+            iid = option['_id']
+            source = option['_source']
 
-            source = option._source
+            if iid in ids:
+                continue
 
             # update non-exists parameter
             if 'photo_id' not in source:
@@ -116,7 +118,7 @@ def user():
                 'photo_url': f'https://{config.app.cdn}/profile/{name}/1.jpg',
             }
 
-            ids.append(option._id)
+            ids.append(iid)
             m.users.append(user)
 
     m.status = True

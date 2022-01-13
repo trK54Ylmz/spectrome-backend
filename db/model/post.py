@@ -56,12 +56,13 @@ class Post(Base):
         :rtype: dict
         """
         items = []
-        for i in range(len(self.items)):
-            ext = 'mp4' if self.types[i] == PostType.VIDEO else 'jpg'
+
+        for item in self.items:
+            ext = 'mp4' if item == PostType.VIDEO else 'jpg'
             scheme = 'http' if config.app.debug else 'https'
             domain = config.app.cdn
-            it = f'{scheme}://{domain}/post/{self.code}/{self.items[i]}.thumb.{ext}'
-            il = f'{scheme}://{domain}/post/{self.code}/{self.items[i]}.large.{ext}'
+            it = f'{scheme}://{domain}/post/{self.code}/{item}.thumb.{ext}'
+            il = f'{scheme}://{domain}/post/{self.code}/{item}.large.{ext}'
 
             item = {
                 'thumb': it,

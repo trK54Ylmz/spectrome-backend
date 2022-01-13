@@ -104,7 +104,7 @@ def create_post_task(
     objects = []
 
     try:
-        for i in range(len(files)):
+        for i, _ in enumerate(files):
             # create content according to the type
             if types[i] == PostType.PHOTO:
                 process = PhotoProcess(

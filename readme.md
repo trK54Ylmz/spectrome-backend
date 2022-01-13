@@ -1,6 +1,6 @@
 ### Spectrome backend API
 
-![Spectrome backend](https://github.com/trK54Ylmz/spectrome-backend/workflows/Spectrome%20backend/badge.svg?branch=master)
+![Spectrome backend](https://github.com/trK54Ylmz/spectrome-backend/actions/workflows/python37.yml/badge.svg)
 
 <p align="center">
     <img src="https://github.com/trK54Ylmz/spectrome-backend/blob/master/site/images/icon.png?raw=true" width="120">

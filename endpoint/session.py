@@ -58,22 +58,19 @@ def refresh():
         m.session = form.session.data
         return m.json()
 
-    # read token has from session data
-    token_content = Session.get_token(form.session.data)
-    if token_content is None:
+    # read session from session data
+    ss = Session.get(form.session.data)
+    if ss is None:
         m.exists = False
         return m.json()
 
     # delete old token key
     redis.delete(f'st.{form.session.data}')
 
-    # decrypt token content
-    user_id = token_content.get('id')
-
     user_service = UserService()
 
     # get user by using user id
-    user = user_service.get_by_id(user_id)
+    user = user_service.get_by_id(ss.id)
 
     # create user session
     session_code = Session.create(user)

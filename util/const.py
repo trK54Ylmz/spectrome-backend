@@ -14,9 +14,11 @@ class ScreenSize:
         """
         if value == 1:
             return ScreenSize.SHORT
-        elif value == 2:
+
+        if value == 2:
             return ScreenSize.SQUARE
-        elif value == 3:
+
+        if value == 3:
             return ScreenSize.TALL
-        else:
-            return None
+
+        return None

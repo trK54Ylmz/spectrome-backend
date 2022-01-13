@@ -25,7 +25,7 @@ def term():
     items = []
 
     # file reader
-    with path.open() as reader:
+    with path.open(encoding='utf-8') as reader:
         for row in reader:
             parser = etree.HTMLParser()
             tree = etree.parse(StringIO(row), parser=parser)

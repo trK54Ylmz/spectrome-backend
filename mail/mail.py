@@ -13,6 +13,7 @@ class MailSendService:
         """
         Create an e-mail and send
         """
+        self._smtp = None
         self._host = config.mail.host
         self._port = config.mail.port
         self._has_ssl = config.mail.has_ssl
@@ -35,7 +36,7 @@ class MailSendService:
         """
         self._smtp.close()
 
-    def get_template(self, name, *args, **kwargs):
+    def get_template(self, name, **kwargs):
         """
         Get jinja2 template and render
 

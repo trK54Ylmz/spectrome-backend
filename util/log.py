@@ -4,7 +4,7 @@ import os
 import sys
 
 
-def init_logging(level='INFO', file=True, stdout=True, **kwargs):
+def init_logging(level='INFO', file=True, stdout=True):
     """
     Initialize logging
 

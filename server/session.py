@@ -1,4 +1,5 @@
 import pytz
+from attrdict import AttrDict
 from datetime import datetime
 from flask import request
 from redis import Redis
@@ -25,14 +26,15 @@ class Session:
         return redis.get(f'ss.{session_code}') is not None
 
     @staticmethod
-    def get():
+    def get(key=None):
         """
         Get session object
 
+        :param str or None key: session key
         :return: session object
         :rtype: object
         """
-        session_code = request.headers.get('x-authorization')
+        session_code = key or request.headers.get('x-authorization')
 
         data = redis.get(f'ss.{session_code}')
         if data is None:
@@ -40,7 +42,7 @@ class Session:
 
         dc = Hash.decrypt(data)
 
-        return type('new_dict', (object,), dc)
+        return AttrDict(dc)
 
     @staticmethod
     def get_tokens(user_id):

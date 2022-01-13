@@ -1,0 +1,56 @@
+[config]
+
+# Ingore defined errors and warnings
+disable=
+    invalid-name,
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    wrong-import-order,
+    unidiomatic-typecheck,
+    no-self-use,
+    ungrouped-imports,
+    too-many-instance-attributes,
+    duplicate-code,
+    too-many-branches,
+    too-few-public-methods,
+    too-many-return-statements,
+    logging-not-lazy,
+    broad-except,
+    too-many-locals,
+    logging-fstring-interpolation,
+    redefined-outer-name,
+    redefined-builtin,
+    raise-missing-from,
+    too-many-statements,
+    deprecated-method,
+    super-with-arguments,
+    use-dict-literal,
+    consider-iterating-dictionary
+
+# Do not check given classes
+# They returns E1101 error (no-member)
+ignored-classes=BaseForm
+
+# Max length is 100 characters
+max-line-length=100
+
+# Max argument limit is 12 for functions and methods
+max-args=12
+
+# Define SQLAlchemy and ZLIB methods
+generated-members=
+    session.commit,
+    session.query,
+    session.close,
+    session.rollback,
+    session.add,
+    session.delete,
+    session.merge,
+    session.refresh,
+    zlib.compress
+    zlib.decompress
+
+# Ignore C extensions
+ignored-modules=
+    lxml.etree

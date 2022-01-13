@@ -31,11 +31,11 @@ class CircleSearchService(ElasticService):
         }
 
         # create suggestion query
-        s = f.search() \
+        s = f.suggest('username', query, completion=fu) \
+            .suggest('name', query, completion=fn) \
             .using(self.client) \
             .index(f.Index.name) \
-            .suggest('username', query, completion=fu) \
-            .suggest('name', query, completion=fn)
+            .search()
 
         res = s.execute()
 

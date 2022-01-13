@@ -128,7 +128,7 @@ def create():
 
     # generate e-mail authentication code
     codes = []
-    for i in range(6):
+    for _ in range(6):
         codes.append(str(randint(0, 9)))
 
     # hash password
@@ -230,7 +230,7 @@ def activation():
 
     # generate e-mail authentication code
     codes = []
-    for i in range(6):
+    for _ in range(6):
         codes.append(str(randint(0, 9)))
 
     # generate new user code
@@ -348,7 +348,7 @@ def forgot():
 
     # generate forgot passwordcode
     codes = []
-    for i in range(6):
+    for _ in range(6):
         codes.append(str(randint(0, 9)))
 
     forgot = Forgot()
