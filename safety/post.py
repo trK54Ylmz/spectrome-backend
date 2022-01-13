@@ -17,8 +17,8 @@ class PostSafety:
         url = f'https://{config.safety.domain}/safety/post'
 
         files = dict()
-        for i in range(len(items)):
-            with open(items[i], 'rb') as f:
+        for i, item in enumerate(items):
+            with open(item, 'rb') as f:
                 files[f'files-{i}'] = BytesIO(f.read())
 
         headers = {'x-authorization': session_code}
@@ -27,7 +27,7 @@ class PostSafety:
         cert = (config.safety.public, config.safety.private)
 
         # send request to server
-        res = r.post(url, verify=verify, files=files,  headers=headers, cert=cert)
+        res = r.post(url, verify=verify, files=files, headers=headers, cert=cert)
 
         if res.status_code < 200 or res.status_code >= 300:
             raise Exception('Invalid status from safety check.')

@@ -10,6 +10,7 @@ class FFmpeg:
     audio = 2
 
     def __init__(self):
+        self.out = None
         self.filters = []
         self.maps = []
         self.args = []
@@ -31,7 +32,7 @@ class FFmpeg:
         ]
 
         # run process
-        r = subprocess.run(args, capture_output=True)
+        r = subprocess.run(args, check=True, capture_output=True)
 
         if len(r.stderr):
             raise Exception(r.stderr)
@@ -72,8 +73,8 @@ class FFmpeg:
         :param str path: file location
         :param dict[str, str] kwargs: custom ffmpeg parameters
         """
-        self.output = path
         self.args = kwargs
+        self.out = path
 
     def _filter(self):
         """
@@ -189,7 +190,7 @@ class FFmpeg:
         """
         if self.input is None:
             raise Exception('The input is required.')
-        if self.output is None:
+        if self.out is None:
             raise Exception('The output is required.')
 
         filters = []
@@ -222,7 +223,7 @@ class FFmpeg:
                 args.append('-' + k)
                 args.append(str(v))
 
-        args.append(self.output)
+        args.append(self.out)
 
         if config.app.debug:
             cmd = ' '.join(args)
@@ -243,6 +244,6 @@ class FFmpeg:
             logger.info(' '.join(args))
 
         # run process
-        r = subprocess.run(args, capture_output=True)
+        r = subprocess.run(args, check=True, capture_output=True)
 
         return r.stdout, r.stderr

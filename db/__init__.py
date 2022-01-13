@@ -17,9 +17,12 @@ def get_engine():
     user = config.db.user
     password = config.db.password
     db = config.db.db
+
     u = f'postgresql://{user}:{password}@{host}:{port}/{db}'
+
     if Strings.is_empty(user) and Strings.is_empty(password):
         u = f'postgresql://{host}:{port}/{db}'
+
     u += '?client_encoding=utf8&sslmode=disable'
 
     pool_size = config.db.pool_size if config.db.pool_size is not None else 10
@@ -29,6 +32,7 @@ def get_engine():
         'pool_size': pool_size,
         'max_overflow': pool_size * 2,
     }
+
     return create_engine(u, **extras)
 
 

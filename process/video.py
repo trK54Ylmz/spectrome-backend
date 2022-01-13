@@ -47,11 +47,11 @@ class VideoProcess(Process):
 
         return width, height
 
-    def safety(self, file):
+    def safety(self, path):
         """
         Check safety of the video
 
-        :param str file: list of file locations
+        :param str path: list of file locations
         :return: file is safe or not
         :rtype: bool
         """
@@ -65,10 +65,10 @@ class VideoProcess(Process):
             os.mkdir(output)
 
         f = FFmpeg()
-        f.input(self._file)
+        f.input(path)
         f.output(output + 'sample-%d.jpg', vf='fps=1', pix_fmt='yuvj422p')
 
-        out, err = f.run()
+        _, err = f.run()
 
         if len(err) > 0:
             shutil.rmtree(output)
@@ -148,7 +148,7 @@ class VideoProcess(Process):
         f.output(large_path, **arguments)
 
         # convert source file to our standarts
-        out, err = f.run()
+        _, err = f.run()
 
         if len(err) > 0:
             raise Exception(err)
@@ -178,7 +178,7 @@ class VideoProcess(Process):
         f.output(thumb_path, **thumb_arguments)
 
         # convert source file to thumbnail standarts
-        out, err = f.run()
+        _, err = f.run()
 
         if len(err) > 0:
             raise Exception(err)

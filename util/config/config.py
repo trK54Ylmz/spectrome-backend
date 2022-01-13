@@ -1,8 +1,8 @@
 import os
 import re
 import sys
+from attrdict import AttrMap
 from configobj import ConfigObj
-from util import Strings
 
 
 class ConfigParser:
@@ -15,7 +15,7 @@ class ConfigParser:
         :return: custom object
         :rtype: object
         """
-        top = type('new', (object,), d)
+        top = AttrMap(sequence_type=list)
         seq = tuple, list, set, frozenset
         for i, j in d.items():
             if isinstance(j, dict):
@@ -30,7 +30,7 @@ class ConfigParser:
                 setattr(top, i, typed)
             else:
                 if j in ['true', 'false']:
-                    j = 'true' == j
+                    j = j == 'true'
                 elif re.match(r'^[0-9]+[\\.]+[0-9]+$', j):
                     j = float(j)
                 elif j.isnumeric():
@@ -38,6 +38,12 @@ class ConfigParser:
                         j = float(j)
                     else:
                         j = int(j)
+                elif re.match(r'^\$\{([0-9A-Z\_]+)\}$', j):
+                    # get environment variable matches
+                    m = re.match(r'^\$\{([0-9A-Z\_]+)\}$', j)
+
+                    # get value of given environment variable
+                    j = os.environ.get(m.groups(1)[0].strip())
                 setattr(top, i, j)
         return top
 
@@ -45,7 +51,7 @@ class ConfigParser:
     def load(path=None):
         """
         Load configuration by given path or `CONFIG` environment.
-        The environment variable is primary lookup
+        The environment variable is primary lookup.
 
         :param str or None path: the configuration path
         :return: the configuration object
@@ -59,7 +65,7 @@ class ConfigParser:
             else:
                 raise Exception('Configuration parameter must be set')
 
-        if Strings.is_empty(path):
+        if path is None or len(path.strip()) == 0:
             raise Exception('Configuration path is missing')
 
         if not os.path.exists(path):

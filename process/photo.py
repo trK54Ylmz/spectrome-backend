@@ -28,17 +28,17 @@ class PhotoProcess(Process):
 
         return width, height
 
-    def safety(self, file):
+    def safety(self, path):
         """
         Check safety of the photo
 
-        :param str file: list of file locations
+        :param str path: list of file locations
         :return: file is safe or not
         :rtype: bool
         """
         ps = PostSafety()
 
-        stats = ps.check(session_code=self._session_code, items=[file])
+        stats = ps.check(session_code=self._session_code, items=[path])
 
         if len(stats) == 0:
             return False
@@ -93,7 +93,7 @@ class PhotoProcess(Process):
         f.output(large_path, **arguments)
 
         # convert source file to our standarts
-        out, err = f.run()
+        _, err = f.run()
 
         if len(err) > 0:
             raise Exception(err)
@@ -123,7 +123,7 @@ class PhotoProcess(Process):
         f.output(thumb_path, **thumb_arguments)
 
         # convert source file to thumbnail standarts
-        out, err = f.run()
+        _, err = f.run()
 
         if len(err) > 0:
             raise Exception(err)

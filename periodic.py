@@ -6,7 +6,7 @@ logger.info('Celery app created ' + celery.main)
 
 
 @celery.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
+def setup_periodic_tasks(sender, **_kwargs):
     """
     Run periodic tasks
 

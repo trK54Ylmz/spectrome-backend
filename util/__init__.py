@@ -13,4 +13,7 @@ class Strings:
         :return: true if string is empty, false otherwise
         :rtype: bool
         """
-        return True if text is None or len(str(text).strip()) == 0 else False
+        if text is None or type(text) != str:
+            return True
+
+        return len(text) == 0

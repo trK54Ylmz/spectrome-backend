@@ -98,50 +98,51 @@ def post(code, hashes, size, extension):
             b = io.BytesIO(o.get('Body').read())
 
             return send_file(b, mimetype='image/jpeg')
-        else:
-            # check if range header is active
-            range_header = request.headers.get('Range', None)
-            if range_header:
-                g = re.search(r'(\d+)-(\d*)', range_header).groups()
 
-                if len(g) == 2 and g[0].isdigit() and g[1].isdigit():
-                    start = int(g[0])
-                    end = int(g[1])
+        # check if range header is active
+        range_header = request.headers.get('Range', None)
 
-                    headers = Headers()
+        if range_header:
+            g = re.search(r'(\d+)-(\d*)', range_header).groups()
 
-                    if end > start:
-                        length = o['ContentLength']
+            if len(g) == 2 and g[0].isdigit() and g[1].isdigit():
+                start = int(g[0])
+                end = int(g[1])
 
-                        ranges = f'bytes={start}-{end}'
+                headers = Headers()
 
-                        # get object from S3 by using range
-                        o = s3.get_object(Bucket=bucket, Key=object_name, Range=ranges)
+                if end > start:
+                    length = o['ContentLength']
 
-                        # set partial response headers
-                        headers.add('content-range', f'bytes {start}-{end}/{length}')
-                        headers.add('accept-ranges', 'bytes')
-                        headers.add('content-transfer-encoding', 'binary')
-                        headers.add('connection', 'keep-alive')
-                        headers.add('content-Type', 'video/mp4')
-                        if end == 1:
-                            headers.add('content-length', '1')
-                        else:
-                            headers.add('content-length', o['ContentLength'])
+                    ranges = f'bytes={start}-{end}'
 
-                        sc = stream_with_context(o.get('Body').iter_chunks())
+                    # get object from S3 by using range
+                    o = s3.get_object(Bucket=bucket, Key=object_name, Range=ranges)
 
-                        return Response(
-                            response=sc,
-                            mimetype='video/mp4',
-                            content_type='video/mp4',
-                            headers=headers,
-                            status=206,
-                            direct_passthrough=True,
-                        )
+                    # set partial response headers
+                    headers.add('content-range', f'bytes {start}-{end}/{length}')
+                    headers.add('accept-ranges', 'bytes')
+                    headers.add('content-transfer-encoding', 'binary')
+                    headers.add('connection', 'keep-alive')
+                    headers.add('content-Type', 'video/mp4')
+                    if end == 1:
+                        headers.add('content-length', '1')
+                    else:
+                        headers.add('content-length', o['ContentLength'])
 
-            sc = stream_with_context(o.get('Body').iter_chunks())
+                    sc = stream_with_context(o.get('Body').iter_chunks())
 
-            return Response(response=sc, mimetype='video/mp4')
+                    return Response(
+                        response=sc,
+                        mimetype='video/mp4',
+                        content_type='video/mp4',
+                        headers=headers,
+                        status=206,
+                        direct_passthrough=True,
+                    )
+
+        sc = stream_with_context(o.get('Body').iter_chunks())
+
+        return Response(response=sc, mimetype='video/mp4')
     except ClientError:
         return 'The key does not exists.'
