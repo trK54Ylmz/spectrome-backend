@@ -25,7 +25,8 @@ disable=
     too-many-statements,
     deprecated-method,
     super-with-arguments,
-    use-dict-literal
+    use-dict-literal,
+    consider-iterating-dictionary
 
 # Do not check given classes
 # They returns E1101 error (no-member)
