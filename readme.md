@@ -1,11 +1,11 @@
 ### Spectrome backend API
 
-![Spectrome backend](https://github.com/trK54Ylmz/spectrome-backend/workflows/Spectrome%20backend/badge.svg?branch=develop)
+![Spectrome backend](https://github.com/trK54Ylmz/spectrome-backend/workflows/Spectrome%20backend/badge.svg?branch=master)
 
 <p align="center">
-    <img src="https://github.com/trK54Ylmz/spectrome-backend/blob/develop/site/images/icon.png?raw=true" width="120">
+    <img src="https://github.com/trK54Ylmz/spectrome-backend/blob/master/site/images/icon.png?raw=true" width="120">
     <br>
-    <img src="https://github.com/trK54Ylmz/spectrome-backend/blob/develop/site/images/logo-alt.png?raw=true" width="200">
+    <img src="https://github.com/trK54Ylmz/spectrome-backend/blob/master/site/images/logo-alt.png?raw=true" width="200">
 </p>
 
 Backend API application of Spectrome.
