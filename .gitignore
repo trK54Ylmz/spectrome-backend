@@ -1,0 +1,8 @@
+.DS_Store
+*.pyc
+__pycache__
+
+/config
+/.vscode
+/celerybeat-schedule
+/celerybeat.pid

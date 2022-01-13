@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div>
+    Hello {{ realname }},
+    <br/>
+    You have just created an account.
+    We have one more step to complete the registration.
+    <br/>
+    <br/>
+    Please write the activation code bellow.
+    <h1 class="text-center letter-space mt-2 mb-2">{{ code }}</h1>
+    <br/>
+    If you can't see the activation screen or the inputs on the screen
+    please click to <b>"Activation"</b> button on the home screen.
+</div>
+{% endblock %}

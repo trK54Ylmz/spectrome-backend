@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div>
+    Hello,
+    <br/>
+    Our user {{ realname }} ({{ username }}) has been sent an invitation to you.
+    <br/>
+    <br/>
+    Please click the button bellow to join in our community.
+    <br/>
+    <div class="text-center mb-2 mt-2">
+        <a href="https://spectrome.app/install.html?code={{ code }}" class="btn">
+            Install application
+        </a>
+    </div>
+    <br/>
+    If you can't see the button properly please click the link bellow.
+    <br/>
+    <small>
+        <a href="https://spectrome.app/install.html?code={{ code }}">
+            https://spectrome.app/install.html?code={{ code }}
+        </a>
+    </small>
+</div>
+{% endblock %}
